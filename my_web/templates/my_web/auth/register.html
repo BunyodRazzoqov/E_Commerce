@@ -110,14 +110,14 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     <div class="mb-3">
-                                        <label class="form-label" for="split-name">Username</label>
-                                        <input class="form-control" name="username" type="text" autocomplete="on"
-                                               id="split-name"/>
-                                    </div>
-                                    <div class="mb-3">
                                         <label class="form-label" for="split-email">Email address</label>
                                         <input class="form-control" type="email" name="email" autocomplete="on"
                                                id="split-email"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="split-name">Username</label>
+                                        <input class="form-control" name="username" type="text" autocomplete="on"
+                                               id="split-name"/>
                                     </div>
                                     <div class="row gx-2">
                                         <div class="mb-3 col-sm-6">

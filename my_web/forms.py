@@ -1,11 +1,12 @@
 from django import forms
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User
 
 from my_web.models import Customer
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(required=True)
+    email = forms.CharField(required=True)
     password = forms.CharField(required=True)
 
 
@@ -17,16 +18,17 @@ class CustomerModelForm(forms.ModelForm):
 
 class RegisterModelForm(forms.ModelForm):
     confirm_password = forms.CharField(max_length=100)
+    username = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
 
-    def clean_username(self):
-        username = self.data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError(f'This {username} is already registered.')
-        return username
+    def clean_email(self):
+        email = self.data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(f'This {email} is already registered.')
+        return email
 
     def clean_password(self):
         password: str = self.data.get('password')

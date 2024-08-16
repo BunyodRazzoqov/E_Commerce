@@ -10,9 +10,9 @@ def login_page(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username: str = form.cleaned_data['username']
+            email: str = form.cleaned_data['email']
             password: str = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, email=email, password=password)
             if user:
                 login(request, user)
                 return redirect('project_management')

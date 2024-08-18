@@ -92,6 +92,9 @@ class Attribute(BaseModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'attribute'
+
 
 class AttributeValue(BaseModel):
     value = models.CharField(max_length=255, null=True, blank=True)
@@ -99,8 +102,11 @@ class AttributeValue(BaseModel):
     def __str__(self):
         return self.value
 
+    class Meta:
+        db_table = 'attribute_value'
+
 
 class ProductAttribute(BaseModel):
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     value = models.ForeignKey(AttributeValue, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='attributes')

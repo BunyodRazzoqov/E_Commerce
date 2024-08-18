@@ -531,44 +531,50 @@
                     </div>
                 </div>
 
+
                 <div class="card-footer border-top d-flex justify-content-center">
                     {% if products.has_previous %}
-                        <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><a
-                                class="fas fa-chevron-left" href="?page={{ products.previous_page_number }}"></a>
-                        </button>
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ products.previous_page_number }}"></a>
                     {% endif %}
 
-                    {% if products.has_previous %}
+
+                    {% if products.has_previous and products.has_next %}
                         <a class="btn btn-sm btn-falcon-default me-2"
                            href="?page={{ products.previous_page_number }}">{{ products.previous_page_number }}</a>
                         <a class="btn btn-sm btn-falcon-default text-primary me-2"
                            href="?page={{ products.number }}">{{ products.number }}</a>
-                    {% endif %}
-
-                    {% if products.has_next %}
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ products.next_page_number }}">{{ products.next_page_number }}</a>
+                    {% elif products.has_previous %}
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ products.previous_page_number }}">{{ products.previous_page_number }}</a>
                         <a class="btn btn-sm btn-falcon-default text-primary me-2"
                            href="?page={{ products.number }}">{{ products.number }}</a>
+                    {% elif products.has_next %}
+                        <a class="btn btn-sm btn-falcon-default text-primary me-2"
+                           href="?page={{ products.number }}">{{ products.number }}</a>
+
                         <a class="btn btn-sm btn-falcon-default me-2"
                            href="?page={{ products.next_page_number }}">{{ products.next_page_number }}</a>
                     {% endif %}
+{#                    {% if products.paginator.num_pages > 10 %}#}
+{#                        {% if products.paginator.num_pages != products.next_page_number %}#}
+{#                            <a class="btn btn-sm btn-falcon-default me-2" href="#!"><span#}
+{#                                    class="fas fa-ellipsis-h"></span></a>#}
+{#                        {% endif %}#}
+{#                        <a class="btn btn-sm btn-falcon-default me-2"#}
+{#                           href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>#}
+{#                    {% endif %}#}
 
-                    {% if products.paginator.num_pages > 3 %}
-                        {% if products.paginator.num_pages != products.next_page_number %}
-                            <a class="btn btn-sm btn-falcon-default me-2" href="#!"><span
-                                    class="fas fa-ellipsis-h"></span></a>
-                        {% endif %}
-                        <a class="btn btn-sm btn-falcon-default me-2"
-                           href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>
-                    {% endif %}
 
                     {% if products.has_next %}
-                        <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Next"><span class="fas fa-chevron-right"></span>
-                        </button>
+                        <a class="btn btn-sm btn-falcon-default me-2"
+                           href="?page={{ products.next_page_number }}"></a>
                     {% endif %}
 
                 </div>
+
 
             </div>
             <footer class="footer">

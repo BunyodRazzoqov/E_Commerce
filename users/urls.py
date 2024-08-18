@@ -1,9 +1,8 @@
-from django.contrib import admin
 from django.urls import path
-
-from my_web.views import views
-from my_web.views import auth
+from users import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('logout/', views.logout_page, name='logout_page'),
+    path('login/', views.login_page, name='login_page'),
+    path('register/', views.register_page, name='register_page'),
 ]

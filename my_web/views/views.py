@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from my_web.models import Customer
 from my_web.forms import CustomerModelForm
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -15,11 +16,14 @@ def customers(request):
     search = request.GET.get('search')
     filter_date = request.GET.get('filter', '')
     customers = Customer.objects.all()
+    paginator = Paginator(customers, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     if search:
-        customers = customers.filter(Q(full_name__icontains=search) | Q(email__icontains=search))
+        page_obj = page_obj.filter(Q(full_name__icontains=search) | Q(email__icontains=search))
     if filter_date == 'filter_date':
-        customers = customers.order_by('-created_at')
-    context = {'customers': customers}
+        page_obj = customers.order_by('-created_at')
+    context = {'customers': page_obj}
     return render(request, 'my_web/customers.html', context)
 
 

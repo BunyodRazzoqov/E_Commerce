@@ -121,12 +121,54 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer d-flex align-items-center justify-content-center">
-            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous"
-                    data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-            <ul class="pagination mb-0"></ul>
-            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next"
-                    data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+        {#        <div class="card-footer d-flex align-items-center justify-content-center">#}
+        {#            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous"#}
+        {#                    data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>#}
+        {#            <ul class="pagination mb-0"></ul>#}
+        {#            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next"#}
+        {#                    data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>#}
+        {#        </div>#}
+        <div class="card-footer border-top d-flex justify-content-center">
+            {% if customers.has_previous %}
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ customers.previous_page_number }}"></a>
+            {% endif %}
+
+
+            {% if customers.has_previous and customers.has_next %}
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ customers.previous_page_number }}">{{ customers.previous_page_number }}</a>
+                <a class="btn btn-sm btn-falcon-default text-primary me-2"
+                   href="?page={{ customers.number }}">{{ customers.number }}</a>
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ customers.next_page_number }}">{{ customers.next_page_number }}</a>
+            {% elif customers.has_previous %}
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ customers.previous_page_number }}">{{ customers.previous_page_number }}</a>
+                <a class="btn btn-sm btn-falcon-default text-primary me-2"
+                   href="?page={{ customers.number }}">{{ customers.number }}</a>
+            {% elif customers.has_next %}
+                <a class="btn btn-sm btn-falcon-default text-primary me-2"
+                   href="?page={{ customers.number }}">{{ customers.number }}</a>
+
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ customers.next_page_number }}">{{ products.next_page_number }}</a>
+            {% endif %}
+            {#                    {% if products.paginator.num_pages > 10 %}#}
+            {#                        {% if products.paginator.num_pages != products.next_page_number %}#}
+            {#                            <a class="btn btn-sm btn-falcon-default me-2" href="#!"><span#}
+            {#                                    class="fas fa-ellipsis-h"></span></a>#}
+            {#                        {% endif %}#}
+            {#                        <a class="btn btn-sm btn-falcon-default me-2"#}
+            {#                           href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>#}
+            {#                    {% endif %}#}
+
+
+            {% if products.has_next %}
+                <a class="btn btn-sm btn-falcon-default me-2"
+                   href="?page={{ products.next_page_number }}"></a>
+            {% endif %}
+
         </div>
     </div>
 

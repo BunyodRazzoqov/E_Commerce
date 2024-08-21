@@ -3,12 +3,12 @@ from my_web.views import views
 
 urlpatterns = [
     path('project-management/', views.project_management, name='project_management'),
-    path('customers/', views.customers, name='customers'),
-    path('customer-details/<slug:customer_slug>/', views.customer_details, name='customer_details'),
+    path('customers/', views.CustomerListView.as_view(), name='customers'),
+    path('customer-details/<slug:customer_slug>/', views.CustomerDetailsView.as_view(), name='customer_details'),
     path('user-profile/', views.profile, name='profile'),
     path('user-settings/', views.profile_settings, name='profile_settings'),
-    path('add-customer/', views.add_customer, name='add_customer'),
-    path('edit-customer/<slug:customer_slug>/', views.edit_customer, name='edit_customer'),
-    path('delete-customer/<slug:customer_slug>/', views.delete_customer, name='delete_customer'),
+    path('add-customer/', views.CustomerCreateView.as_view(), name='add_customer'),
+    path('edit-customer/<slug:customer_slug>/', views.CustomerUpdateView.as_view(), name='edit_customer'),
+    path('delete-customer/<slug:customer_slug>/', views.CustomerDeleteView.as_view(), name='delete_customer'),
 
 ]

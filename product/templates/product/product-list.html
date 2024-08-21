@@ -446,7 +446,7 @@
                                 <div class="row">
                                     <div class="col-sm-5 col-md-4">
                                         <div class="position-relative h-sm-100"><a class="d-block h-100"
-                                                                                   href="../../../app/e-commerce/product/product-details.html"><img
+                                                                                   href="{% url 'product_detail' product.slug %}"><img
                                                 class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered"
                                                 src="{{ product.image.url }}" alt=""/></a>
                                             <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">

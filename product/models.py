@@ -33,14 +33,6 @@ class Category(BaseModel):
 
 
 class Product(BaseModel):
-    class RatingChoices(models.IntegerChoices):
-        zero = 0
-        one = 1
-        two = 2
-        three = 3
-        four = 4
-        five = 5
-
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     slug = models.SlugField(unique=True, null=True, blank=True)
@@ -80,6 +72,14 @@ class Image(BaseModel):
 
 
 class Comment(BaseModel):
+    class RatingChoices(models.IntegerChoices):
+        zero = 0
+        one = 1
+        two = 2
+        three = 3
+        four = 4
+        five = 5
+
     message = models.TextField()
     file = models.FileField(upload_to='comments/', null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')

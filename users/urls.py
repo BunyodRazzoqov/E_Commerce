@@ -8,3 +8,13 @@ urlpatterns = [
     path('sending-mail/', views.SendEmailView.as_view(), name='sending_email'),
     path('success/', views.success, name='success'),
 ]
+
+
+
+# <div class="col-lg-6 mb-4 mb-lg-0">
+#                     {% for image in product.images.all %}
+#                         <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100"
+#                                                              src="{{ image.image.url }}" alt=""/>
+#                         </div>
+#                     {% endfor %}
+#                 </div>

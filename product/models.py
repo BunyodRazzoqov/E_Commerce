@@ -69,6 +69,11 @@ class Image(BaseModel):
     class Meta:
         db_table = 'image'
 
+    @property
+    def is_primary_image(self):
+        if self.is_primary:
+            return self.image
+
 
 class Comment(BaseModel):
     class RatingChoices(models.IntegerChoices):

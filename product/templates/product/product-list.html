@@ -445,14 +445,18 @@
                             <div class="col-12 p-card">
                                 <div class="row">
                                     <div class="col-sm-5 col-md-4">
-                                        <div class="position-relative h-sm-100"><a class="d-block h-100"
-                                                                                   href="{% url 'product_detail' product.slug %}"><img
-                                                class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered"
-                                                src="{{ product.image.url }}" alt=""/></a>
-                                            <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">
-                                                New
-                                            </div>
-                                        </div>
+                                        {% for image in product.images.all %}
+                                            {% if image.is_primary %}
+                                                <div class="position-relative h-sm-100"><a class="d-block h-100"
+                                                                                           href="{% url 'product_detail' product.slug %}"><img
+                                                        class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered"
+                                                        src="{{ image.image.url }}" alt=""/></a>
+                                                    <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">
+                                                        New
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                     <div class="col-sm-7 col-md-8">
                                         <div class="row">
@@ -464,11 +468,11 @@
                                                                                  href="#!">{{ product.category }}</a>
                                                 </p>
                                                 <ul class="list-unstyled d-none d-lg-block">
-{#                                                    {% for productattribute in product.productattribute_set.value.value %}#}
-{#                                                        <li><span class="fas fa-circle"#}
-{#                                                                  data-fa-transform="shrink-12"></span>hello  world<span></span>#}
-{#                                                        </li>#}
-{#                                                    {% endfor %}#}
+                                                    {% for productattribute in product.productattribute_set.all %}
+                                                        <li><span class="fas fa-circle"
+                                                                  data-fa-transform="shrink-12"></span><span>{{ productattribute.value }}</span>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </div>
                                             <div class="col-lg-4 d-flex justify-content-between flex-column">

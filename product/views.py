@@ -58,7 +58,7 @@ class ProductListView(LoginRequiredMixin, ListView):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     template_name = 'product/add-product.html'
-    fields = ['name', 'price', 'category', 'description', 'discount', 'quantity', 'image']
+    fields = ['name', 'price', 'category', 'description', 'discount', 'quantity']
     success_url = reverse_lazy('product_list')
 
     # def form_valid(self, form):
@@ -83,7 +83,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     slug_field = 'slug'
     slug_url_kwarg = 'product_slug'
     context_object_name = 'product'
-    fields = ['name', 'price', 'category', 'description', 'discount', 'quantity', 'image']
+    fields = ['name', 'price', 'category', 'description', 'discount', 'quantity']
     success_url = reverse_lazy('product_list')
 
 

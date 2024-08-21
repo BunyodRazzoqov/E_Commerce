@@ -1,7 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from users.forms import LoginForm, RegisterModelForm
+from django.views.generic import FormView
+from django.urls import reverse_lazy
+
+from config.settings import EMAIL_DEFAULT_SENDER
+from users.forms import LoginForm, RegisterModelForm, EmailSendForm
 
 
 def login_page(request):
@@ -21,21 +26,47 @@ def login_page(request):
     return render(request, 'users/login.html', {'form': form})
 
 
-def register_page(request):
-    if request.method == 'POST':
-        form = RegisterModelForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            login(request, user)
-            return redirect('customers')
-    else:
-        form = RegisterModelForm()
-    context = {'form': form}
-    return render(request, 'users/register.html', context)
+# def register_page(request):
+#     if request.method == 'POST':
+#         form = RegisterModelForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.save()
+#             login(request, user)
+#             return redirect('customers')
+#     else:
+#         form = RegisterModelForm()
+#     context = {'form': form}
+#     return render(request, 'users/register.html', context)
+
+
+class RegisterFormView(FormView):
+    form_class = RegisterModelForm
+    template_name = 'users/register.html'
+
+    def form_valid(self, form):
+        form.send_email()
+        user = form.save(commit=False)
+        user.save()
+        login(self.request, user)
+        return redirect('customers')
 
 
 def logout_page(request):
     if request.method == 'POST':
         logout(request)
         return redirect('customers')
+
+
+class SendEmailView(FormView):
+    template_name = 'users/sending_mail.html'
+    form_class = EmailSendForm
+    success_url = reverse_lazy('success')
+
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)
+
+
+def success(request):
+    return render(request, 'users/success.html')

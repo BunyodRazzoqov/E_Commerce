@@ -1,5 +1,7 @@
 from users.models import User
 from django import forms
+from config.settings import EMAIL_DEFAULT_SENDER
+from django.core.mail import send_mail
 
 
 class LoginForm(forms.Form):
@@ -28,6 +30,19 @@ class RegisterModelForm(forms.ModelForm):
             raise forms.ValidationError('Please enter the same password')
         return self.cleaned_data['password']
 
+    def send_email(self):
+        title = 'Welcome to Ecommerce'
+        message = 'We are glad to see you on our site'
+        email = self.cleaned_data['email']
+        sender = EMAIL_DEFAULT_SENDER
+        send_mail(
+            title,
+            message,
+            sender,
+            [email],
+            fail_silently=False,
+        )
+
     def save(self, commit=True):
         user = super(RegisterModelForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password'])
@@ -39,3 +54,22 @@ class RegisterModelForm(forms.ModelForm):
             user.save()
 
         return user
+
+
+class EmailSendForm(forms.Form):
+    email = forms.EmailField(required=True)
+    title = forms.CharField(required=True)
+    message = forms.CharField(required=True)
+
+    def send_email(self):
+        title = self.cleaned_data['title']
+        message = self.cleaned_data['message']
+        email = self.cleaned_data['email']
+        sender = EMAIL_DEFAULT_SENDER
+        send_mail(
+            title,
+            message,
+            sender,
+            [email],
+            fail_silently=False,
+        )

@@ -38,7 +38,6 @@ class Product(BaseModel):
     slug = models.SlugField(unique=True, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
     discount = models.IntegerField(default=0, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=0, null=True, blank=True)
 
@@ -109,4 +108,4 @@ class AttributeValue(BaseModel):
 class ProductAttribute(BaseModel):
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     value = models.ForeignKey(AttributeValue, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='attributes')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)

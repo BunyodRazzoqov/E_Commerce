@@ -25,14 +25,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'quantity', 'category_id', 'price', 'discount', 'preview')
+    list_display = ('name', 'quantity', 'category_id', 'price', 'discount')
     search_fields = ['id', 'name', 'price']
     prepopulated_fields = {'slug': ('name',)}
     list_filter = ['category_id']
 
     # fields = ('price', 'discounted_price',)
 
-    def preview(self, obj):
-        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 20px;">')
-
-    preview.short_description = 'Image'
+    # def preview(self, obj):
+    #     return mark_safe(f'<img src="{obj.image.url}" style="max-height: 20px;">')
+    #
+    # preview.short_description = 'Image'

@@ -2,6 +2,7 @@ from users.models import User
 from django import forms
 from config.settings import EMAIL_DEFAULT_SENDER
 from django.core.mail import send_mail
+from users.custom_field import MultiEmailField
 
 
 class LoginForm(forms.Form):
@@ -57,9 +58,9 @@ class RegisterModelForm(forms.ModelForm):
 
 
 class EmailSendForm(forms.Form):
-    email = forms.EmailField(required=True)
-    title = forms.CharField(required=True)
-    message = forms.CharField(required=True)
+    email = MultiEmailField(widget=forms.Textarea)
+    title = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea)
 
     def send_email(self):
         title = self.cleaned_data['title']
@@ -70,6 +71,6 @@ class EmailSendForm(forms.Form):
             title,
             message,
             sender,
-            [email],
+            email,
             fail_silently=False,
         )

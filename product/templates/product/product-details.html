@@ -2,33 +2,59 @@
 {% load static %}
 {% block product_details %}
 
+
+    <style>
+        .main-photo {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 80px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <div class="product-slider" id="galleryTop">
-                        <div class="swiper-container theme-slider position-lg-absolute all-0"
-                             data-swiper='{"autoHeight":true,"spaceBetween":{{ product.images.count }},"loop":true,"loopedSlides":{{ product.images.count }},"thumb":{"spaceBetween":{{ product.images.count }},"slidesPerView":{{ product.images.count }},"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":{{ product.images.count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
-                            {% for image in product.images.all %}
-                                <div class="swiper-wrapper h-100">
-                                    {% if image.is_primary %}
-                                        <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100"
-                                                                             src="{{ image.image.url }}"
-                                                                             alt=""/>
-                                        </div>
-                                    {% endif %}
-                                    <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100"
-                                                                         src="{{ image.image.url }}"
-                                                                         alt=""/>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                            <div class="swiper-nav">
-                                <div class="swiper-button-next swiper-button-white"></div>
-                                <div class="swiper-button-prev swiper-button-white"></div>
-                            </div>
+                    <img src="https://avatars.mds.yandex.net/i?id=e4dc48f21bea1afdefc24beac5d2f4f0164429b9-10452512-images-thumbs&n=13"
+                         alt="Основная фотография" class="main-photo">
+
+                    <div class="thumbnails">
+                        <div class="thumbnail">
+                            <img src="https://avatars.mds.yandex.net/i?id=40bd577a988887922da9f50ab10dae6b6059c3e6b184aaa8-4614822-images-thumbs&n=13"
+                                 alt="Дополнительная фотография 1">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="https://avatars.mds.yandex.net/i?id=9b5d62ea10a322f425def8512afc2a382108655e-5295169-images-thumbs&n=13"
+                                 alt="Дополнительная фотография 2">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="https://avatars.mds.yandex.net/i?id=b35f79cd2f9250364483e818850b57b4b4af9f8d-10397524-images-thumbs&n=13"
+                                 alt="Дополнительная фотография 3">
                         </div>
                     </div>
+
                 </div>
                 <div class="col-lg-6">
                     <h5>{{ product.name }}</h5><a class="fs--1 mb-2 d-block" href="#!">{{ product.category }}</a>

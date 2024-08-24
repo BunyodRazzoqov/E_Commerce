@@ -24,4 +24,5 @@ urlpatterns = [
                   path('my-web/', include('my_web.urls')),
                   path('users/', include('users.urls')),
                   path('product/', include('product.urls')),
+                  path('social-auth/', include('social_django.urls', namespace='social')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

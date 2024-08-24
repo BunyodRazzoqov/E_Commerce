@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-
+from import_export.admin import ImportExportModelAdmin
 from product.models import Product, Category, Image, Attribute, AttributeValue, ProductAttribute
 
 
@@ -15,7 +15,7 @@ from product.models import Product, Category, Image, Attribute, AttributeValue, 
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'title', 'product_count')
     search_fields = ['title', 'id']
     prepopulated_fields = {'slug': ('title',)}
@@ -25,7 +25,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Product)
-class ProductModelAdmin(admin.ModelAdmin):
+class ProductModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('name', 'quantity', 'category_id', 'price', 'discount')
     search_fields = ['id', 'name', 'price']
     prepopulated_fields = {'slug': ('name',)}
@@ -40,7 +40,7 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
+class ImageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'product', 'is_primary')
     search_fields = ['id', 'product']
     list_filter = ['product']
@@ -58,21 +58,21 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Attribute)
-class AttributeAdmin(admin.ModelAdmin):
+class AttributeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'name')
     search_fields = ['id', 'name']
     list_filter = ['name']
 
 
 @admin.register(AttributeValue)
-class AttributeValueAdmin(admin.ModelAdmin):
+class AttributeValueAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'value')
     search_fields = ['id', 'value']
     list_filter = ['value']
 
 
 @admin.register(ProductAttribute)
-class ProductAttributeAdmin(admin.ModelAdmin):
+class ProductAttributeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'attribute', 'value', 'product')
     search_fields = ['id', 'value', 'attribute', 'product']
     list_filter = ['product']

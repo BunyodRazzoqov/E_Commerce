@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'my_web.apps.MyWebConfig',
     'users.apps.UsersConfig',
     'product.apps.ProductConfig',
+    'social_django',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +153,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_DEFAULT_SENDER = EMAIL_HOST_USER
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+LOGIN_REDIRECT_URL = 'customers'

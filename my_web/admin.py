@@ -2,9 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportModelAdmin
-
 from my_web.models import Customer
-
 
 # Register your models here.
 
@@ -29,3 +27,5 @@ class CustomerModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     preview_image.short_description = 'Image'
     """
+
+

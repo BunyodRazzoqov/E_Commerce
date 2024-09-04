@@ -1,10 +1,15 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.views import View
+from django.core.paginator import Paginator
+from tablib import Dataset
 
+from my_web.resources import CustomerResource
 from my_web.models import Customer
 from my_web.forms import CustomerModelForm
-from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -34,7 +39,7 @@ class CustomerListView(View):
         search = request.GET.get('search')
         filter_date = request.GET.get('filter', '')
         customers = Customer.objects.all()
-        paginator = Paginator(customers, 2)
+        paginator = Paginator(customers, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
@@ -133,3 +138,73 @@ class CustomerDeleteView(View):
         if customer:
             customer.delete()
             return redirect('customers')
+
+
+# def export_data(request):
+#     export_format = request.GET.get('format')
+#     customer_resource = CustomerResource()
+#     dataset = customer_resource.export()
+#     response = HttpResponse(dataset, content_type=format)
+#     date = datetime.now().strftime("%Y-%m-%d")
+#     if export_format == 'csv':
+#         response = HttpResponse(dataset.csv, content_type='text/csv')
+#         response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.csv"'
+#
+#     elif export_format == 'json':
+#         response = HttpResponse(dataset.json, content_type='application/json')
+#         response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.json"'
+#
+#     elif export_format == 'xls':
+#         response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+#         response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.xls"'
+#
+#     elif export_format == 'yaml':
+#         response = HttpResponse(dataset.yaml, content_type='application/yaml')
+#         response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.yaml"'
+#
+#     return response
+
+
+class ExportDataView(View):
+    def get(self, request, *args, **kwargs):
+        export_format = request.GET.get('format')
+        customer_resource = CustomerResource()
+        dataset = customer_resource.export()
+        response = HttpResponse(dataset, content_type=format)
+        date = datetime.now().strftime("%Y-%m-%d")
+        if export_format == 'csv':
+            response = HttpResponse(customer_resource.export(), content_type='text/csv')
+            response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.csv"'
+        elif export_format == 'json':
+            response = HttpResponse(dataset.json, content_type='application/json')
+            response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.json"'
+
+        elif export_format == 'xls':
+            response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.xls"'
+
+        elif export_format == 'yaml':
+            response = HttpResponse(dataset.yaml, content_type='application/yaml')
+            response['Content-Disposition'] = f'attachment; filename="{Customer._meta.object_name}-{date}.yaml"'
+
+        return response
+
+# def import_data(request):
+#     if request.method == 'POST':
+#         format = request.GET.get('format')
+#         customer_resource = CustomerResource()
+#         dataset = Dataset()
+#         new_employees = request.FILES['importData']
+#
+#         if format == 'CSV':
+#             imported_data = dataset.load(new_employees.read().decode('utf-8'), format='csv')
+#             result = customer_resource.import_data(dataset, dry_run=True)
+#         elif format == 'JSON':
+#             imported_data = dataset.load(new_employees.read().decode('utf-8'), format='json')
+#             result = customer_resource.import_data(dataset, dry_run=True)
+#
+#         if not result.has_errors():
+#             # Import now
+#             customer_resource.import_data(dataset, dry_run=False)
+#
+#     return render(request, 'import.html')

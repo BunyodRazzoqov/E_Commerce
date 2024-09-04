@@ -9,3 +9,5 @@ from users.models import User
 @admin.register(User)
 class UserAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('email', 'username')
+
+

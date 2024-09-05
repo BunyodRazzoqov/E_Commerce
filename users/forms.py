@@ -31,23 +31,10 @@ class RegisterModelForm(forms.ModelForm):
             raise forms.ValidationError('Please enter the same password')
         return self.cleaned_data['password']
 
-    def send_email(self):
-        title = 'Welcome to Ecommerce'
-        message = 'We are glad to see you on our site'
-        email = self.cleaned_data['email']
-        sender = EMAIL_DEFAULT_SENDER
-        send_mail(
-            title,
-            message,
-            sender,
-            [email],
-            fail_silently=False,
-        )
-
     def save(self, commit=True):
         user = super(RegisterModelForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password'])
-        user.is_active = True
+        user.is_active = False
         user.is_superuser = True
         user.is_staff = True
 

@@ -42,7 +42,7 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
     #############
     # User Menu #
     #############
-    # Additional links to include in the user menu on the top right ('app' url type is not allowed)
+    # Additional links to include in the user menu on the top right ('my_app' url type is not allowed)
     "usermenu_links": [],
     #############
     # Side Menu #
@@ -57,7 +57,7 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
     "hide_models": [],
     # List of apps to base side menu ordering off of
     "order_with_respect_to": [],
-    # Custom links to append to side menu app groups, keyed on app name
+    # Custom links to append to side menu my_app groups, keyed on my_app name
     "custom_links": {},
     # Custom icons for side menu apps/models See the link below
     # https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,
@@ -200,7 +200,7 @@ def get_search_model_string(search_model: str) -> str:
     """
     Get a search model string for reversing an admin url.
 
-    Ensure the model name is lower cased but remain the app name untouched.
+    Ensure the model name is lower cased but remain the my_app name untouched.
     """
 
     app, model_name = search_model.split(".")

@@ -53,14 +53,14 @@ JAZZMIN_SETTINGS = {
         {"model": "auth.User"},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "books"},
+        {"my_app": "books"},
     ],
 
     #############
     # User Menu #
     #############
 
-    # Additional links to include in the user menu on the top right ("app" url type is not allowed)
+    # Additional links to include in the user menu on the top right ("my_app" url type is not allowed)
     "usermenu_links": [
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
@@ -85,7 +85,7 @@ JAZZMIN_SETTINGS = {
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
 
-    # Custom links to append to app groups, keyed on app name
+    # Custom links to append to my_app groups, keyed on my_app name
     "custom_links": {
         "books": [{
             "name": "Make Messages",

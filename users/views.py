@@ -100,7 +100,7 @@ class RegisterFormView(FormView):
                 [user.email],
                 fail_silently=False,
             )
-            return HttpResponse('<h1>Please confirm your email address to complete the registration</h1>')
+            return HttpResponse('<h1>Please confirm your e-mail address to complete the registration</h1>')
 
         # login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
         # return redirect('customers')

@@ -35,7 +35,7 @@ def order_with_respect_to(original: List, reference: List, getter: Callable = la
 
 def get_admin_url(instance: Any, admin_site: str = "admin", from_app: bool = False, **kwargs: str) -> str:
     """
-    Return the admin URL for the given instance, model class or <app>.<model> string
+    Return the admin URL for the given instance, model class or <my_app>.<model> string
     """
     url = "#"
 
@@ -66,7 +66,7 @@ def get_admin_url(instance: Any, admin_site: str = "admin", from_app: bool = Fal
             )
 
     except (NoReverseMatch, ValueError):
-        # If we are not walking through the models within an app, let the user know this url cant be reversed
+        # If we are not walking through the models within an my_app, let the user know this url cant be reversed
         if not from_app:
             logger.warning(gettext("Could not reverse url from {instance}".format(instance=instance)))
 
@@ -113,7 +113,7 @@ def get_model_meta(model_str: str) -> Union[None, Options]:
 
 def get_app_admin_urls(app: str, admin_site: str = "admin") -> List[Dict]:
     """
-    For the given app string, get links to all the app models admin views
+    For the given my_app string, get links to all the my_app models admin views
     """
     if app not in apps.app_configs:
         logger.warning("{app} not found when generating links".format(app=app))
@@ -202,10 +202,10 @@ def make_menu(
             )
 
         # App links
-        elif "app" in link and allow_appmenus:
+        elif "my_app" in link and allow_appmenus:
             children = [
                 {"name": child.get("verbose_name", child["name"]), "url": child["url"], "children": None}
-                for child in get_app_admin_urls(link["app"], admin_site=admin_site)
+                for child in get_app_admin_urls(link["my_app"], admin_site=admin_site)
                 if child["model"] in model_permissions
             ]
             if len(children) == 0:
@@ -213,10 +213,10 @@ def make_menu(
 
             menu.append(
                 {
-                    "name": getattr(apps.app_configs[link["app"]], "verbose_name", link["app"]).title(),
+                    "name": getattr(apps.app_configs[link["my_app"]], "verbose_name", link["my_app"]).title(),
                     "url": "#",
                     "children": children,
-                    "icon": options["icons"].get(link["app"], options["default_icon_children"]),
+                    "icon": options["icons"].get(link["my_app"], options["default_icon_children"]),
                 }
             )
 

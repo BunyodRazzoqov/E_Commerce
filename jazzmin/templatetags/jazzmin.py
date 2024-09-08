@@ -457,7 +457,7 @@ def header_class(header: Dict, forloop: Dict) -> str:
 @register.filter
 def app_is_installed(app: str) -> bool:
     """
-    Checks if an app has been installed under INSTALLED_APPS on the project settings
+    Checks if an my_app has been installed under INSTALLED_APPS on the project settings
     """
     return app in settings.INSTALLED_APPS
 

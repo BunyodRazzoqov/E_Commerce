@@ -122,7 +122,8 @@ class CustomerUpdateView(View):
         form = CustomerModelForm(request.POST, request.FILES, instance=customer)
         if form.is_valid():
             form.save()
-            return redirect('customers', customer_slug)
+
+            return redirect('customer_details', customer.slug)
 
 
 # def delete_customer(request, customer_slug):
